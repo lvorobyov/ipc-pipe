@@ -1,0 +1,17 @@
+= ipc-pipe
+
+The wrapper for IPC pipe based on libevent
+
+== How to use
+
+----
+#include "object_pipe.h"
+using namespace ipc;
+
+object_pipe pipe;
+pipe.add_listener([](int id, char *msg) {
+  cout << id << ' ' << msg << endl;
+});
+
+object_pipe::send(1, "test");
+----
