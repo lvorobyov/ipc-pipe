@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 project(ipc-pipe)
 set(CMAKE_CXX_STANDARD 17)
-add_executable(${PROJECT_NAME} main.cpp object_pipe.cpp object_pipe.h stat.cpp stat.h pipe_listener.cpp pipe_listener.h)
-target_link_libraries(${PROJECT_NAME} event_core)
+add_library(object_pipe STATIC object_pipe.cpp object_pipe.h stat.cpp stat.h)
+target_link_libraries(object_pipe event_core)
+add_executable(${PROJECT_NAME} main.cpp pipe_listener.cpp pipe_listener.h)
+target_link_libraries(${PROJECT_NAME} object_pipe)
+add_executable(pipe_test pipe_test.cpp)
+target_link_libraries(pipe_test object_pipe)
+
